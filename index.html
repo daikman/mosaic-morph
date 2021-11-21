@@ -1,42 +1,67 @@
-<!DOCTYPE html><html lang="en"><head>
-    <script src="p5.js"></script>
-    <script src="p5.sound.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="style.css">
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script src="js/p5.js"></script>
     <meta charset="utf-8">
-   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
   <body>
     <h1>Morph Mosaic</h1>
+    <b>by David Aikman</b>
+    <p>
+      This is a tool that cuts up an image into segments, and uses those segments to replicate another image.
+      Selected images will be scaled to 400x400 pixels, and the segments will be 16x16 pixels.
+    </p>
     <br>
     <div id="inputs">
-      
-      
+
+
       <h3>Create this image...</h3>
-      <input id="img_sel_1" type="file" name="filename" onchange="document.getElementById('img_disp_1').src = window.URL.createObjectURL(this.files[0])">
+      <input id="img_sel_1" type="file" name="filename" onchange="
+      document.getElementById('img_disp_1').src = window.URL.createObjectURL(this.files[0]);
+      document.getElementById('morph_button').disabled = 'disabled'
+      ">
       <img id="img_disp_1" alt="your image" width="100" height="100">
-      
+
       <h3>... from segments of this image</h3>
-      <input id="img_sel_2" type="file" name="filename" onchange="document.getElementById('img_disp_2').src = window.URL.createObjectURL(this.files[0])">
+      <input id="img_sel_2" type="file" name="filename" onchange="
+      document.getElementById('img_disp_2').src = window.URL.createObjectURL(this.files[0]);
+      document.getElementById('morph_button').disabled = 'disabled'
+      ">
       <img id="img_disp_2" alt="your image" width="100" height="100">
-        
+
     <br>
     <br>
-    <button onclick="refreshImages();">Submit images</button>
-    <button onclick="morph();">Create mosaic</button>
-      
+    <button id="submit_button" onclick="refreshImages();" disabled="disabled">Submit images</button>
+    <button id="morph_button" onclick="morph();" disabled="disabled">Create mosaic</button>
+
     </div>
-  
+
     <br>
     <div id="morph"></div>
     <br>
-    
-    <button onclick="to_save =  cnv.get(0, 0, size, size);
-to_save.save('mosaic.png');">Download mosaic</button>
-    
-    
-    <script src="morph.js"></script>
-<!--     <script src="image_1.js"></script>
-    <script src="image_2.js"></script> -->
-  
 
-</body></html>
+    <button onclick="to_save = cnv.get(0, 0, size, size);
+to_save.save('mosaic.png');">Download mosaic</button>
+
+
+    <script src="js/morph.js"></script>
+    <script type="text/javascript">
+      setInterval(
+        function() {
+          let first_selected = document.getElementById('img_sel_1').value != ''
+          let second_selected = document.getElementById('img_sel_2').value != ''
+          if (first_selected && second_selected) {
+            document.getElementById('submit_button').disabled = null
+          } else {
+            document.getElementById('submit_button').disabled = 'disabled'
+          }
+        },
+        1000
+      )
+    </script>
+
+  </body>
+</html>
