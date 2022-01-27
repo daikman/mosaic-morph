@@ -41,7 +41,6 @@ function refreshImages() {
 }
 
 function morph() {
-
   // process images
   image_1 = processImage(img, reso)
   image_2 = processImage(img2, reso)

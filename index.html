@@ -12,56 +12,30 @@
     <b>by David Aikman</b>
     <p>
       This is a tool that cuts up an image into segments, and uses those segments to replicate another image.
-      Selected images will be scaled to 400x400 pixels, and the segments will be 16x16 pixels.
     </p>
+    <center>
+      <a href="/morph.html"><button type="button" name="button">Go to tool</button></a>
+    </center>
     <br>
-    <div id="inputs">
-
-
-      <h3>Create this image...</h3>
-      <input id="img_sel_1" type="file" name="filename" onchange="
-      document.getElementById('img_disp_1').src = window.URL.createObjectURL(this.files[0]);
-      document.getElementById('morph_button').disabled = 'disabled'
-      ">
-      <img id="img_disp_1" alt="your image" width="100" height="100">
-
-      <h3>... from segments of this image</h3>
-      <input id="img_sel_2" type="file" name="filename" onchange="
-      document.getElementById('img_disp_2').src = window.URL.createObjectURL(this.files[0]);
-      document.getElementById('morph_button').disabled = 'disabled'
-      ">
-      <img id="img_disp_2" alt="your image" width="100" height="100">
-
+    <h3>Example</h3>
+    <br>
+    <p>If you take this picture of Obama</p>
+    <img src="images/obama.jpg" alt="" width="400px" height="400px">
     <br>
     <br>
-    <button id="submit_button" onclick="refreshImages();" disabled="disabled">Submit images</button>
-    <button id="morph_button" onclick="morph();" disabled="disabled">Create mosaic</button>
-
-    </div>
-
+    <p>And draw it using segments of this picture of a forest</p>
+    <img src="images/pine_trees.jpeg" alt="" width="400px" height="400px">
     <br>
-    <div id="morph"></div>
     <br>
-
-    <button onclick="to_save = cnv.get(0, 0, size, size);
-to_save.save('mosaic.png');">Download mosaic</button>
-
-
-    <script src="js/morph.js"></script>
-    <script type="text/javascript">
-      setInterval(
-        function() {
-          let first_selected = document.getElementById('img_sel_1').value != ''
-          let second_selected = document.getElementById('img_sel_2').value != ''
-          if (first_selected && second_selected) {
-            document.getElementById('submit_button').disabled = null
-          } else {
-            document.getElementById('submit_button').disabled = 'disabled'
-          }
-        },
-        1000
-      )
-    </script>
+    <p>You get this:</p>
+    <img src="images/obamatree.png" alt="" width="400px" height="400px">
+    <br>
+    <br>
+    <center>
+      <a href="/morph.html"><button type="button" name="button">Make your own</button></a>
+    </center>
+    <br>
+    <br>
 
   </body>
 </html>

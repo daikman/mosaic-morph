@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script src="js/p5.js"></script>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body>
+    <h1><a href="/index.html"></a>Morph Mosaic</h1>
+    <div id="inputs">
+
+
+      <h3>Create this image...</h3>
+      <input id="img_sel_1" type="file" name="filename" onchange="
+      document.getElementById('img_disp_1').src = window.URL.createObjectURL(this.files[0]);
+      document.getElementById('morph_button').disabled = 'disabled'
+      ">
+      <img id="img_disp_1" alt="your image" width="100" height="100">
+
+      <h3>... from segments of this image</h3>
+      <input id="img_sel_2" type="file" name="filename" onchange="
+      document.getElementById('img_disp_2').src = window.URL.createObjectURL(this.files[0]);
+      document.getElementById('morph_button').disabled = 'disabled'
+      ">
+      <img id="img_disp_2" alt="your image" width="100" height="100">
+
+    <br>
+    <br>
+    <h5>Segment resolution:</h5>
+    <input id="res_slider" type="range" name="" value="" onchange="
+    document.getElementById('morph_button').disabled = 'disabled';
+    document.getElementById('submit_button').disabled = 'disabled';
+    document.getElementById('res_text-1').innerHTML = document.getElementById('res_slider').value;
+    document.getElementById('res_text-2').innerHTML = document.getElementById('res_slider').value;
+    reso = +document.getElementById('res_slider').value;
+    " min="4" max="64" step="4" value="16">
+    <p>
+        The segments will be <span id="res_text-1">16</span>x<span id="res_text-2">16</span> pixels.
+    </p>
+    <p>The smaller the segments, the longer it will take to create the mosaic.</p>
+
+    <button id="submit_button" onclick="refreshImages();" disabled="disabled">Process images</button>
+    <button id="morph_button" onclick="morph();" disabled="disabled">Create mosaic</button>
+
+    </div>
+
+    <br>
+    <div id="morph"></div>
+    <br>
+
+    <button onclick="to_save = cnv.get(0, 0, size, size);
+to_save.save('mosaic.png');">Download mosaic</button>
+
+
+    <script src="js/morph.js"></script>
+    <script type="text/javascript">
+      setInterval(
+        function() {
+          let first_selected = document.getElementById('img_sel_1').value != ''
+          let second_selected = document.getElementById('img_sel_2').value != ''
+          if (first_selected && second_selected) {
+            document.getElementById('submit_button').disabled = null
+          } else {
+            document.getElementById('submit_button').disabled = 'disabled'
+          }
+        },
+        1000
+      )
+    </script>
+
+  </body>
+</html>
